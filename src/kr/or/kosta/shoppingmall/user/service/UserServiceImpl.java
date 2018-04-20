@@ -31,4 +31,8 @@ public class UserServiceImpl implements UserService{
 		return dao.listAll();
 	}
 
+	@Override
+	public User read(String id) {
+		return dao.read(id);
+	}
 }

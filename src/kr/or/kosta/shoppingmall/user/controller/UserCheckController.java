@@ -1,5 +1,6 @@
 package kr.or.kosta.shoppingmall.user.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -17,19 +18,29 @@ import kr.or.kosta.shoppingmall.user.service.UserServiceImpl;
  * @author 이대용
  *
  */
-public class UserListController implements Controller {
+public class UserCheckController implements Controller {
 	
 	private UserService userService = new UserServiceImpl();
 	
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+		String id = request.getParameter("id");
 		
-		List<User> list = userService.list();
+		User user = userService.read(id);
 		
-		ModelAndView mav = new ModelAndView();
-		mav.setView("/user/list.jsp");
-		mav.addObject("list", list);
-			
-		return mav;
+		response.setContentType("application/json");
+	    response.setCharacterEncoding("UTF-8");
+		
+	    try {
+	    	if (user != null) {
+	    		response.getWriter().write("true");
+	    	} else {
+	    		response.getWriter().write("false");
+	    	}
+	    } catch (IOException e) {
+	    	e.printStackTrace();
+	    }	
+		
+		return null;
 	}
 }

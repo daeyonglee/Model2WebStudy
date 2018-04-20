@@ -13,6 +13,6 @@
 	<bean name="/user/certify" class="kr.or.kosta.shoppingmall.user.controller.UserCertifyController" /> -->
 	<bean name="/user/list"    class="kr.or.kosta.shoppingmall.user.controller.UserListController" />
 	<!-- <bean name="/user/read"    class="kr.or.kosta.shoppingmall.user.controller.UserReadController" /> -->
-	
+	<bean name="/user/registCheck" class="kr.or.kosta.shoppingmall.user.controller.UserCheckController" />
 
 </beans>

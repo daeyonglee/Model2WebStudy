@@ -16,4 +16,7 @@ public interface UserService {
 	public User certify(String id, String passwd) throws RuntimeException;
 	
 	public List<User> list() throws RuntimeException;
+
+	// id로 회원조회
+	public User read(String id);
 }

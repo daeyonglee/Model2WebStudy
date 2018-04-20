@@ -12,6 +12,43 @@
   src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
   src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/ajax.js"></script>
+<script type="text/javascript">
+	window.onload = function() {
+		var forms = document.forms;
+		
+		for (var i in forms) {
+			if (forms[i].getAttribute("name") == "join") {
+				var elements = forms[i].elements;
+				
+				for (var ii in elements) {
+					if (elements[ii].name == "id") {
+						elements[ii].addEventListener('keyup', function(e) {
+							var idVal = e.target.value;
+							if (idVal.length >= 6) {
+								ajax({
+									method:"GET",
+									url:"registCheck.mall",
+									param: "id="+idVal,
+									callback: function(request) {
+										var result = request.responseText;
+										
+										if (result == "true") {
+											e.target.nextSibling.nextSibling.innerHTML = "사용가능 합니다.";
+										} else {
+											e.target.nextSibling.nextSibling.innerHTML = "사용 불가능합니다.";
+										}
+									}
+								});
+							}
+						}, false);
+					}
+				}
+				break;
+			}
+		}
+	}
+</script>
 </head>
 <body>
   <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -63,7 +100,6 @@
     </div>
   </nav>
 
-
   <div class="container">
     <br>
     <div class="row">
@@ -76,12 +112,13 @@
       <div class="col-md-5">
 
         <form class="form-horizontal" role="form" action=""
-          method="post">
+          method="post" name="join">
 
           <div class="form-group">
             <label class="control-label col-sm-3">아이디:</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" name="id">
+              <input type="text" class="form-control" name="id" style="display: inline; width:50%;">
+              <span></span>
             </div>
           </div>
 
